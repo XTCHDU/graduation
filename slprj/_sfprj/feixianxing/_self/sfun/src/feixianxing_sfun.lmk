@@ -1,0 +1,39 @@
+CC     = "F:\matlab\sys\lcc64\lcc64\bin\lcc64.exe"
+LD     = "F:\matlab\sys\lcc64\lcc64\bin\lcclnk64.exe"
+LIBCMD = "F:\matlab\sys\lcc64\lcc64\bin\lcclib64.exe"
+CFLAGS = -dll -noregistrylookup  -c -Zp8 -DLCC_WIN64 -DMATLAB_MEX_FILE -DMX_COMPAT_32 -nodeclspec 
+LDFLAGS = -s -dll -L"F:\matlab\sys\lcc64\lcc64\lib64" -entry LibMain -map sfun.map 
+LIBFLAGS = 
+
+OBJECTS = \
+	"feixianxing_sfun.obj"\
+	"c2_feixianxing.obj"\
+	"feixianxing_sfun_registry.obj"\
+	"lccstub.obj"\
+	"feixianxing_sfun.def"\
+	"F:\matlab\extern\lib\win64\microsoft\sf_runtime.lib"\
+	"F:\matlab\extern\lib\win64\microsoft\libmwblas.lib"\
+	"F:\matlab\extern\lib\win64\microsoft\libmx.lib"\
+	"F:\matlab\extern\lib\win64\microsoft\libmex.lib"\
+	"F:\matlab\extern\lib\win64\microsoft\libmat.lib"\
+	"F:\matlab\extern\lib\win64\microsoft\libfixedpoint.lib"\
+	"F:\matlab\extern\lib\win64\microsoft\libut.lib"\
+	"F:\matlab\extern\lib\win64\microsoft\libmwmathutil.lib"\
+	"F:\matlab\extern\lib\win64\microsoft\libemlrt.lib"\
+	"F:\matlab\extern\lib\win64\microsoft\libmwsl_log_load_blocks.lib"\
+	"F:\matlab\extern\lib\win64\microsoft\libmwsimulink.lib"\
+	"F:\matlab\lib\win64\libmwipp.lib"\
+
+INCLUDE_PATH= -I"F:\matlab\sys\lcc64\lcc64\include64"  -I"F:\matlab\extern\include"  -I"F:\matlab\simulink\include"  -I"F:\matlab\stateflow\c\mex\include"  -I"F:\matlab\rtw\c\src"  -I"C:\Users\Administrator\Desktop\slprj\_sfprj\feixianxing\_self\sfun\src" 
+ 
+
+feixianxing_sfun.mexw64 : $(MAKEFILE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o feixianxing_sfun.mexw64 @feixianxing_sfun.lmko
+feixianxing_sfun.obj :	"feixianxing_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "feixianxing_sfun.c"
+c2_feixianxing.obj :	"c2_feixianxing.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c2_feixianxing.c"
+feixianxing_sfun_registry.obj :	"feixianxing_sfun_registry.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "feixianxing_sfun_registry.c"
+lccstub.obj :	"F:\matlab\sys\lcc64\lcc64\mex\lccstub.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "F:\matlab\sys\lcc64\lcc64\mex\lccstub.c"
